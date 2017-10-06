@@ -8,6 +8,7 @@ namespace Products.Backend.Controllers
     using Products.Backend.Models;
     using Products.Domain;
 
+    [Authorize(Users ="cpalacios@crealodigital.com")]
     public class CategoriesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
@@ -76,6 +77,7 @@ namespace Products.Backend.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Edit([Bind(Include = "CategoryId,Description")] Category category)
         public async Task<ActionResult> Edit([Bind(Include = "CategoryId,Description")] Category category)
         {
             if (ModelState.IsValid)

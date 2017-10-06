@@ -17,7 +17,7 @@ namespace Products.Domain
 
         [Required(ErrorMessage = "The field {0} is required.")]
         [MaxLength(50, ErrorMessage = "The field {0} only can contain {1} characters lenght.")]
-        [Index("Photographer_Description_Index", IsUnique = true)]
+        [Index("Product_Description_Index", IsUnique = true)]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required.")]
