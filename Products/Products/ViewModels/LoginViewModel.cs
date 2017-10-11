@@ -146,7 +146,7 @@
             IsEnabled = false;
 
             var connection = await apiService.CheckConnection();
-            if(connection.IsSuccess)
+            if(!connection.IsSuccess)
             {
                 IsRunning = false;
                 IsEnabled = true;
@@ -155,7 +155,15 @@
             }
 
             var response = await apiService.GetToken("http://productspalapi.azurewebsites.net", Email, Password);
-            if(response == null || string.IsNullOrEmpty(response.AccessToken))
+            if(response == null)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogServices.ShowMessage("Error", "The service is not available, please try latter.");
+                Password = null;
+                return;
+            }
+            if (string.IsNullOrEmpty(response.AccessToken))
             {
                 IsRunning = false;
                 IsEnabled = true;
@@ -164,8 +172,9 @@
                 return;
 
             }
-
             await dialogServices.ShowMessage("taran", "Welcome!!!");
+            IsRunning = false;
+            IsEnabled = true;
         }
     } 
         #endregion

@@ -22,7 +22,7 @@ namespace Products.Models
         [JsonProperty(PropertyName = ".expires ")]
         public DateTime Expires { get; set; }
 
-        [JsonProperty(PropertyName = ".error_description")]
+        [JsonProperty(PropertyName = "error_description")]
         public string ErrorDescription { get; set; }
     }
 }
