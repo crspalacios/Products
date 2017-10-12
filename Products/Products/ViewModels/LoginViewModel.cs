@@ -4,7 +4,8 @@
     using System.ComponentModel;
     using System.Windows.Input;
     using Services;
-
+    using Xamarin.Forms;
+    using Products.View;
 
     public class LoginViewModel : INotifyPropertyChanged
     {
@@ -172,7 +173,12 @@
                 return;
 
             }
-            await dialogServices.ShowMessage("taran", "Welcome!!!");
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Categories = new CategoriesViewModel();
+            mainViewModel.Token = response;
+            await Application.Current.MainPage.Navigation.PushAsync(new CategoriesView());
+            Email = null;
+            Password = null;
             IsRunning = false;
             IsEnabled = true;
         }

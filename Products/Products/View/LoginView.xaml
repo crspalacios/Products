@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Login}"
-            Padding="2"
+            Padding="8"
             Spacing="8">
             <Label
                 FontAttributes="Bold"
