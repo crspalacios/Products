@@ -8,6 +8,37 @@
         <StackLayout
             BindingContext="{Binding Categories}"
             Padding="5">
+
+            <ListView 
+                ItemsSource="{Binding CategoriesList}"
+                HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                         <ViewCell>
+                              <Grid>
+                                   <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                   </Grid.ColumnDefinitions>
+                                   <Label 
+                                       Grid.Column="0"
+                                       HorizontalOptions="FillAndExpand"
+                                       VerticalOptions="Center"
+                                       Text="{Binding Description}"/>
+                                   <Image
+                                       HorizontalOptions="End"
+                                       Source="ic_chevron_right">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectCategoryCommand}"></TapGestureRecognizer>
+                                    </Image.GestureRecognizers>
+                                   </Image>
+ 
+                              </Grid>
+                         </ViewCell>
+                     </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

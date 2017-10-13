@@ -19,6 +19,11 @@
             get;
             set;
         }
+        public ProductsViewModels Products
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructors

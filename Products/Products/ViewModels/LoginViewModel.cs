@@ -115,6 +115,10 @@
         {
             apiService = new ApiService();
             dialogServices = new DialogService();
+
+            Email = "cpalacios@crealodigital.com";
+            Password = "123456";
+
             IsEnabled = true;
             IsToggled = true;
         }
