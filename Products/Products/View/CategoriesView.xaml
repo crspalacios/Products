@@ -4,6 +4,11 @@
              x:Class="Products.View.CategoriesView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Categories">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_add_circle"
+                     Command="{Binding NewCategoryCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Categories}"

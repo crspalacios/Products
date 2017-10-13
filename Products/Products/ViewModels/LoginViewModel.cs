@@ -4,8 +4,6 @@
     using System.ComponentModel;
     using System.Windows.Input;
     using Services;
-    using Xamarin.Forms;
-    using Products.View;
 
     public class LoginViewModel : INotifyPropertyChanged
     {
@@ -24,6 +22,7 @@
         #region Services
         ApiService apiService;
         DialogService dialogServices;
+        NavigationService navigationService;
         #endregion
 
         #region Propierties
@@ -115,7 +114,7 @@
         {
             apiService = new ApiService();
             dialogServices = new DialogService();
-
+            navigationService = new NavigationService();
             Email = "cpalacios@crealodigital.com";
             Password = "123456";
 
@@ -180,17 +179,18 @@
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Categories = new CategoriesViewModel();
             mainViewModel.Token = response;
-            await Application.Current.MainPage.Navigation.PushAsync(new CategoriesView());
+            await navigationService.Navigate("CategoriesView");
             Email = null;
             Password = null;
             IsRunning = false;
             IsEnabled = true;
         }
-    } 
         #endregion
+    }
 
-       
-    
+
+
+
 }
 
     

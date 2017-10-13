@@ -3,13 +3,17 @@
     using GalaSoft.MvvmLight.Command;
     using System.Collections.Generic;
     using System.Windows.Input;
-    using System;
-    using Xamarin.Forms;
-    using Products.View;
     using Products.ViewModels;
+    using Services;
 
     public class Category
     {
+        #region Services
+
+        NavigationService navigationService;
+
+        #endregion
+
         #region Properties
         public int CategorId { get; set; }
         public string Description { get; set; }
@@ -28,14 +32,24 @@
 
         }
         #endregion
+
+        #region Constructors
+        public Category()
+        {
+            navigationService = new NavigationService();
+        }
+        #endregion
+
         #region Methods
 
         async void SelectCategory()
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Products = new ProductsViewModels(Products);
-            await Application.Current.MainPage.Navigation.PushAsync(new ProductsView());
-        } 
+
+            await navigationService.Navigate("ProductsView");
+           
+        }
         #endregion
 
     }
