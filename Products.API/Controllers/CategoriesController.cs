@@ -12,6 +12,7 @@ namespace Products.API.Controllers
     using Products.Domain;
     using System.Collections.Generic;
     using Products.API.Models;
+    using System;
 
     [Authorize]
     public class CategoriesController : ApiController
@@ -111,7 +112,24 @@ namespace Products.API.Controllers
             }
 
             db.Categories.Add(category);
-            await db.SaveChangesAsync();
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                if(ex.InnerException != null &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("Index"))
+                {
+                    return BadRequest("There are a record with the same description");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = category.CategoryId }, category);
         }

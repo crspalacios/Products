@@ -27,5 +27,10 @@ namespace Products.Services
             }
             
         }
+
+        public async  Task Back()
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
     }
 }

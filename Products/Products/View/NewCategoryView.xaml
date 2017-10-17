@@ -7,8 +7,24 @@
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding NewCategory}"
-            Padding="10">
-
+            Padding="20">
+            <Label 
+                Text="Category:"></Label>
+            <Entry
+                Text="{Binding DescriptionNewCategory, Mode=TwoWay}"
+                Placeholder="Enter Category Description"></Entry>
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand"></ActivityIndicator>
+            <Button
+                Command="{Binding SaveCategoryCommand}"
+                BackgroundColor="#0B615E"
+                BorderRadius="23"
+                IsEnabled="{Binding IsEnabled,Mode=TwoWay}"
+                Margin="50,0"
+                HeightRequest="46"
+                VerticalOptions="EndAndExpand"
+                Text="Save"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
