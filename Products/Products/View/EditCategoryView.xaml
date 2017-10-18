@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Products.View.NewCategoryView"
+             x:Class="Products.View.EditCategoryView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="New Category">
+             Title="Edit Category">
     <ContentPage.Content>
         <StackLayout
-            BindingContext="{Binding NewCategory}"
+            BindingContext="{Binding EditCategory}"
             Padding="20">
             <Label 
                 Text="Category:"></Label>
@@ -17,7 +17,7 @@
                 IsRunning="{Binding IsRunning, Mode=TwoWay}"
                 VerticalOptions="CenterAndExpand"></ActivityIndicator>
             <Button
-                Command="{Binding SaveNewCategoryCommand}"
+                Command="{Binding SaveCategoryCommand}"
                 BackgroundColor="#0B615E"
                 BorderRadius="23"
                 IsEnabled="{Binding IsEnabled,Mode=TwoWay}"

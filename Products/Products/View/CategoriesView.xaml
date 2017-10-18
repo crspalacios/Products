@@ -5,7 +5,7 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Categories">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="ic_add_circle"
+        <ToolbarItem Icon="ic_action_add_circle"
                      Command="{Binding NewCategoryCommand}"/>
     </ContentPage.ToolbarItems>
 
@@ -16,27 +16,42 @@
 
             <ListView 
                 ItemsSource="{Binding CategoriesList}"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
                 HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                          <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                    Command="{Binding EditCommand}"
+                                    Text="Edit"></MenuItem>
+
+                                <MenuItem
+                                    Command="{Binding DeleteCommand}"
+                                    IsDestructive="True"
+                                    Text="Delete"></MenuItem>
+                            </ViewCell.ContextActions>
                               <Grid>
                                    <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                    </Grid.ColumnDefinitions>
-                                   <Label 
+                                <Label 
                                        Grid.Column="0"
                                        HorizontalOptions="FillAndExpand"
                                        VerticalOptions="Center"
-                                       Text="{Binding Description}"/>
-                                   <Image
+                                       Text="{Binding Description}">
+                                </Label>
+
+                                <Image
                                        HorizontalOptions="End"
                                        Source="ic_chevron_right">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding SelectCategoryCommand}"></TapGestureRecognizer>
                                     </Image.GestureRecognizers>
-                                   </Image>
+                                </Image>
  
                               </Grid>
                          </ViewCell>

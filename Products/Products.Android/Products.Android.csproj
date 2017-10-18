@@ -176,13 +176,13 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_chevron_right.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_add_circle.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_add_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_add_circle.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_add_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_add_circle.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_add_circle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

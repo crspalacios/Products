@@ -39,6 +39,12 @@
             get;
             set;
         }
+
+        public EditCategoryVewModel EditCategory
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructors

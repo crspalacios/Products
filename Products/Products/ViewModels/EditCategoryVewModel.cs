@@ -1,4 +1,7 @@
-﻿namespace Products.ViewModels
+﻿
+
+
+namespace Products.ViewModels
 {
     using System.ComponentModel;
     using GalaSoft.MvvmLight.Command;
@@ -7,21 +10,22 @@
     using Models;
     using System;
 
-    public class NewCategoryViewModels : INotifyPropertyChanged
+    public class EditCategoryVewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
-
-        #region Attributes
-        bool _isRunning;
-        bool _isEnabled;
         #endregion
 
         #region Services
         ApiService apiService;
         DialogService dialogServices;
         NavigationService navigationService;
+        #endregion
+
+        #region Attributes
+        bool _isRunning;
+        bool _isEnabled;
+        Category category;
         #endregion
 
         #region Propierties
@@ -65,26 +69,26 @@
             get;
 
         }
-        public string Prueba
-        { get;
-          set;
-        }
-
         #endregion
 
         #region Constructor
-        public NewCategoryViewModels()
+
+        public EditCategoryVewModel(Category category)
         {
+            this.category = category;
+
+
             apiService = new ApiService();
             dialogServices = new DialogService();
             navigationService = new NavigationService();
-            IsEnabled = true;
 
-        }
+            Description = category.Description;
+            IsEnabled = true;
+            }
         #endregion
 
         #region Commands
-        public ICommand SaveNewCategoryCommand
+        public ICommand SaveCategoryCommand
         {
             get
             {
@@ -92,7 +96,7 @@
             }
         }
 
-        
+
         #endregion
 
         #region Methods
@@ -100,7 +104,7 @@
         {
             if (string.IsNullOrEmpty(Description))
             {
-                await dialogServices.ShowMessage("Error", "You must enter a category Description");
+                await dialogServices.ShowMessage("Error", "Yeou must enter a category Description");
                 return;
             }
             IsRunning = true;
@@ -114,12 +118,10 @@
                 await dialogServices.ShowMessage("Error", connection.Message);
                 return;
             }
-            var category = new Category
-            {
-                Description = Description,
-            };
+
+            category.Description = Description;
             var mainViewModel = MainViewModel.GetInstance();
-            var response = await apiService.Post("http://productspalapi.azurewebsites.net", 
+            var response = await apiService.Put("http://productspalapi.azurewebsites.net",
                                                   "/api",
                                                   "/Categories",
                                                   mainViewModel.Token.TokenType,
@@ -129,13 +131,13 @@
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await dialogServices.ShowMessage("Error", response.Message);
+                await dialogServices.ShowMessage("Errors", response.Message);
                 return;
             }
 
-            category = (Category)response.Result;
+            
             var categoriesViewModel = CategoriesViewModel.GetInstance();
-            categoriesViewModel.AddCategory(category);
+            categoriesViewModel.UpdateCategory(category);
 
             await navigationService.Back();
 
@@ -144,5 +146,9 @@
         }
         #endregion
     }
+
+
+
+
 
 }

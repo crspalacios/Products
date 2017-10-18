@@ -8,6 +8,9 @@ namespace Products.ViewModels
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Input;
+    using GalaSoft.MvvmLight.Command;
+    using System.Threading.Tasks;
 
     public class CategoriesViewModel : INotifyPropertyChanged
     {
@@ -18,6 +21,7 @@ namespace Products.ViewModels
         #region Attributes
         public ObservableCollection<Category> _categories;
         List<Category> categories;
+        bool _isRefreshing;
         #endregion
 
         #region Services
@@ -55,9 +59,48 @@ namespace Products.ViewModels
             categories.Add(category);
             CategoriesList = new ObservableCollection<Category>(categories.OrderBy(c => c.Description));
         }
+        public void UpdateCategory(Category category)
+        {
+            IsRefreshing = true;
+            var oldCategory = categories.Where(c => c.CategoryId == category.CategoryId).FirstOrDefault();
+            oldCategory = category;
+            CategoriesList = new ObservableCollection<Category>(categories.OrderBy(c => c.Description));
+            IsRefreshing = false;
+        }
+        public async Task DeleteCategory(Category category)
+        {
+            IsRefreshing = true;
 
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                IsRefreshing = false;
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+ 
+            var mainViewModel = MainViewModel.GetInstance();
+            var response = await apiService.Delete("http://productspalapi.azurewebsites.net",
+                                                  "/api",
+                                                  "/Categories",
+                                                  mainViewModel.Token.TokenType,
+                                                  mainViewModel.Token.AccessToken,
+                                                  category);
+            if (!response.IsSuccess)
+            {
+                IsRefreshing = false;
+                await dialogService.ShowMessage("Errors", response.Message);
+                return;
+            }
+
+            categories.Remove(category);
+            CategoriesList = new ObservableCollection<Category>(categories.OrderBy(c => c.Description));
+            IsRefreshing = false;
+        }
         async void LoadCategories()
         {
+            IsRefreshing = true;
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
@@ -66,7 +109,6 @@ namespace Products.ViewModels
             }
 
             var mainViewModel = MainViewModel.GetInstance();
-
             var response = await apiService.GetList<Category>("http://productspalapi.azurewebsites.net", 
                                                               "/api",
                                                               "/Categories", 
@@ -80,6 +122,7 @@ namespace Products.ViewModels
 
             categories = (List<Category>)response.Result;
             CategoriesList = new ObservableCollection<Category>(categories.OrderBy(c => c.Description));
+            IsRefreshing = false;
         }
         #endregion
 
@@ -98,6 +141,33 @@ namespace Products.ViewModels
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CategoriesList)));
 
                 }
+            }
+        }
+        public bool IsRefreshing
+        {
+            get
+            {
+                return _isRefreshing;
+            }
+            set
+            {
+                if (_isRefreshing != value)
+                {
+                    _isRefreshing = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRefreshing)));
+
+                }
+            }
+        }
+        #endregion
+        
+
+        #region Commands
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadCategories);
             }
         }
 

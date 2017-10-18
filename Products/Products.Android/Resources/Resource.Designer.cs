@@ -2232,7 +2232,7 @@ namespace Products.Droid
 			public const int design_snackbar_background = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int ic_add_circle = 2130837595;
+			public const int ic_action_add_circle = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
 			public const int ic_audiotrack_dark = 2130837596;

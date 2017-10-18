@@ -24,8 +24,13 @@ namespace Products.Services
                     await Application.Current.MainPage.Navigation.PushAsync(new NewCategoryView());
                     break;
 
+                case "EditCategoryView":
+                    await Application.Current.MainPage.Navigation.PushAsync(new EditCategoryView());
+                    break;
+
+
             }
-            
+
         }
 
         public async  Task Back()
