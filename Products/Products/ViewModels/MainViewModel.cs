@@ -45,6 +45,27 @@
             get;
             set;
         }
+
+        public NewProductViewModel NewProduct
+        {
+            get;
+            set;
+        }
+        public Category Category
+        {
+            get;
+            set;
+        }
+        public Product Product
+        {
+            get;
+            set;
+        }
+        public EditProductViewModel EditProduct
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructors
@@ -78,13 +99,28 @@
             }
           
         }
-        #endregion
+
+        public ICommand NewProductCommand
+        {
+            get
+            {
+                return new RelayCommand(GoNewProduct);
+            }
+        }
+
+         #endregion
 
         #region Events
         async void GoNewCategory()
         {
             NewCategory = new NewCategoryViewModels();
             await navigationService.Navigate("NewCategoryView");
+        }
+
+        async void GoNewProduct()
+        {
+            NewProduct = new NewProductViewModel();
+            await navigationService.Navigate("NewProductView");
         }
         #endregion
     }

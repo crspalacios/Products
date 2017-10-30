@@ -52,9 +52,11 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\EditCategoryVewModel.cs" />
+    <Compile Include="ViewModels\EditProductViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NewCategoryViewModels.cs" />
+    <Compile Include="ViewModels\NewProductViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModels.cs" />
     <Compile Include="View\CategoriesView.xaml.cs">
       <DependentUpon>CategoriesView.xaml</DependentUpon>
@@ -62,11 +64,17 @@
     <Compile Include="View\EditCategoryView.xaml.cs">
       <DependentUpon>EditCategoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditProductsView.xaml.cs">
+      <DependentUpon>EditProductsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NewCategoryView.xaml.cs">
       <DependentUpon>NewCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewProductView.xaml.cs">
+      <DependentUpon>NewProductView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ProductsView.xaml.cs">
       <DependentUpon>ProductsView.xaml</DependentUpon>
@@ -151,6 +159,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\EditCategoryView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\NewProductView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\EditProductsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

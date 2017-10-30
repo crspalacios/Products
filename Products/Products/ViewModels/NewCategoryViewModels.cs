@@ -5,7 +5,7 @@
     using System.Windows.Input;
     using Services;
     using Models;
-    using System;
+ 
 
     public class NewCategoryViewModels : INotifyPropertyChanged
     {
@@ -65,11 +65,6 @@
             get;
 
         }
-        public string Prueba
-        { get;
-          set;
-        }
-
         #endregion
 
         #region Constructor
@@ -136,7 +131,7 @@
             category = (Category)response.Result;
             var categoriesViewModel = CategoriesViewModel.GetInstance();
             categoriesViewModel.AddCategory(category);
-
+           
             await navigationService.Back();
 
             IsRunning = true;

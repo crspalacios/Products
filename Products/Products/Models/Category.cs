@@ -75,6 +75,7 @@
         async void SelectCategory()
         {
             var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Category = this;
             mainViewModel.Products = new ProductsViewModels(Products);
 
             await navigationService.Navigate("ProductsView");

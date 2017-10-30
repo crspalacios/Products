@@ -28,7 +28,14 @@ namespace Products.Services
                     await Application.Current.MainPage.Navigation.PushAsync(new EditCategoryView());
                     break;
 
-
+                case "NewProductView":
+                    await Application.Current.MainPage.Navigation.PushAsync(new NewProductsView());
+                    break;
+                
+           
+               case "EditProductView":
+                    await Application.Current.MainPage.Navigation.PushAsync(new EditProductsView());
+                    break;
             }
 
         }

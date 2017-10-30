@@ -3,7 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Products.View.ProductsView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Products">
+             Title="{Binding Category.Description}">
+            <ContentPage.ToolbarItems>
+                    <ToolbarItem Icon="ic_action_add_circle"
+                     Command="{Binding NewProductCommand}"/>
+            </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Products}"
@@ -11,10 +15,26 @@
 
             <ListView 
                 ItemsSource="{Binding Products}"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                HasUnevenRows="True">
                 HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                    Command="{Binding EditCommand}"
+                                    Text="Edit"></MenuItem>
+
+                                <MenuItem
+                                    Command="{Binding DeleteCommand}"
+                                    IsDestructive="True"
+                                    Text="Delete"></MenuItem>
+                            </ViewCell.ContextActions>
+                            
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>

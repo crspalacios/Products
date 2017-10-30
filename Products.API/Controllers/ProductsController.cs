@@ -9,7 +9,7 @@ namespace Products.API.Controllers
     using System.Web.Http;
     using System.Web.Http.Description;
     using Products.Domain;
-
+    using System;
 
     [Authorize]
     public class ProductsController : ApiController
@@ -80,7 +80,24 @@ namespace Products.API.Controllers
             }
 
             db.Products.Add(product);
-            await db.SaveChangesAsync();
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                if(ex.InnerException !=null && 
+                    ex.InnerException.InnerException !=null &&
+                    ex.InnerException.InnerException.Message.Contains("Index"))
+                {
+                    return BadRequest("There are a record with same description");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = product.ProductId }, product);
         }
